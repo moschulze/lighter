@@ -1,6 +1,7 @@
 #include "easylogging++.h"
 #include "configuration/Configuration.h"
 #include "configuration/ConfigurationLoader.h"
+#include "Kernel.h"
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -15,6 +16,9 @@ int main(int argv, char* argc[]) {
     ConfigurationLoader* configLoader = new ConfigurationLoader();
     Configuration* config = configLoader->loadFromFile(configPath);
     VLOG(9) << "Configuration values:" << std::endl << config->toString();
+
+    Kernel* kernel = new Kernel(config);
+    kernel->boot();
 
     return 0;
 }
