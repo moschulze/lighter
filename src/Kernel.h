@@ -2,6 +2,7 @@
 #define LIGHTER_KERNEL_H
 
 #include "configuration/Configuration.h"
+#include "http/HttpServer.h"
 
 class Kernel {
 public:
@@ -9,6 +10,7 @@ public:
     void boot();
 private:
     Configuration* config;
+    HttpServer* httpServer;
 };
 
 
