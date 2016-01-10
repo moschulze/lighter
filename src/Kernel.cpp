@@ -9,6 +9,7 @@ void Kernel::boot() {
     this->httpServer = new HttpServer(this->config->serverPort);
     this->httpServer->init();
 
-    std::thread serverThread(&HttpServer::start, this->httpServer);
-    serverThread.join();
+    this->httpServer->start();
+    //std::thread serverThread(&HttpServer::start, this->httpServer);
+    //serverThread.join();
 }

@@ -3,7 +3,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <thread>
 #include "easylogging++.h"
+#include "ClientProcessor.h"
 
 
 HttpServer::HttpServer(int port) {
@@ -33,7 +35,11 @@ void HttpServer::init() {
 void HttpServer::start() {
     while(this->run) {
         int client = accept(this->serverSocket, NULL, NULL);
-        LOG(INFO) << "Connection!";
+        ClientProcessor* clientProcessor = new ClientProcessor();
+        clientProcessor->setClient(client);
+        clientProcessor->process();
+
+        close(client);
     }
 
     close(this->serverSocket);
