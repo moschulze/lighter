@@ -30,6 +30,8 @@ DeviceType *DeviceTypeRepository::findById(std::string id) {
     fclose(filePointer);
 
     DeviceType* type = new DeviceType();
+    type->id = id;
+
     if(!document.HasMember("name") || !document["name"].IsString()) {
         LOG(ERROR) << "Cant't read property \"name\" from device type configuration in file " << path;
         return NULL;
