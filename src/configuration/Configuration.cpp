@@ -9,6 +9,7 @@ std::string Configuration::toString() {
     returnString << "data.path: " << this->dataPath << std::endl;
     returnString << "deviceTypes.path: " << this->deviceTypesPath << std::endl;
     returnString << "devices.path: " << this->devicesPath << std::endl;
+    returnString << "interfaces.path: " << this->interfacesPath << std::endl;
 
     return returnString.str();
 }

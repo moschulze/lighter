@@ -23,6 +23,8 @@ Configuration* ConfigurationLoader::loadFromFile(char *path) {
             config->deviceTypesPath = itr->value.GetString();
         } else if(strcmp(itr->name.GetString(), "devices.path") == 0) {
             config->devicesPath = itr->value.GetString();
+        } else if(strcmp(itr->name.GetString(), "interfaces.path") == 0) {
+            config->interfacesPath = itr->value.GetString();
         }
     }
 
