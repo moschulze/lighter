@@ -9,8 +9,11 @@ DeviceTypeRepository::DeviceTypeRepository(std::string directory) {
 
 DeviceType *DeviceTypeRepository::findById(std::string id) {
     if(this->types.find(id) != this->types.end()) {
+        VLOG(9) << "Loading device type from cache: " << id;
         return this->types.find(id)->second;
     }
+
+    VLOG(9) << "Loading device type from file: " << id;
 
     std::string path = this->directory;
     path += id;
