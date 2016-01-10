@@ -1,4 +1,6 @@
 #include "Kernel.h"
+#include "device/DeviceTypeRepository.h"
+#include "easylogging++.h"
 #include <thread>
 
 Kernel::Kernel(Configuration* config) {
@@ -6,6 +8,8 @@ Kernel::Kernel(Configuration* config) {
 }
 
 void Kernel::boot() {
+    DeviceTypeRepository* deviceTypeRepository = new DeviceTypeRepository(this->config->deviceTypesPath);
+
     this->httpServer = new HttpServer(this->config->serverPort);
     this->httpServer->init();
 

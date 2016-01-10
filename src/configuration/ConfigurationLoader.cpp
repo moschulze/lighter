@@ -19,6 +19,8 @@ Configuration* ConfigurationLoader::loadFromFile(char *path) {
             config->serverPort = itr->value.GetInt();
         } else if(strcmp(itr->name.GetString(), "data.path") == 0) {
             config->dataPath = itr->value.GetString();
+        } else if(strcmp(itr->name.GetString(), "deviceTypes.path") == 0) {
+            config->deviceTypesPath = itr->value.GetString();
         }
     }
 
