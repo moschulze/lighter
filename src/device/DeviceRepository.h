@@ -10,6 +10,7 @@ class DeviceRepository {
 public:
     DeviceRepository(DeviceTypeRepository* deviceTypeRepository);
     bool loadFromFile(std::string path);
+    Device* findById(std::string id);
 
 private:
     std::map<std::string, Device*> devices;

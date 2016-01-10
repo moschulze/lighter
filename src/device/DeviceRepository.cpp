@@ -59,3 +59,11 @@ bool DeviceRepository::loadFromFile(std::string path) {
 
     return false;
 }
+
+Device *DeviceRepository::findById(std::string id) {
+    if(this->devices.find(id) != NULL) {
+        return this->devices.find(id)->second;
+    }
+
+    return NULL;
+}
