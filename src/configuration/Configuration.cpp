@@ -8,6 +8,7 @@ std::string Configuration::toString() {
     returnString << "server.port: " << this->serverPort << std::endl;
     returnString << "data.path: " << this->dataPath << std::endl;
     returnString << "deviceTypes.path: " << this->deviceTypesPath << std::endl;
+    returnString << "devices.path: " << this->devicesPath << std::endl;
 
     return returnString.str();
 }

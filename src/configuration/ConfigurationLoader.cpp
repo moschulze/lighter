@@ -21,6 +21,8 @@ Configuration* ConfigurationLoader::loadFromFile(char *path) {
             config->dataPath = itr->value.GetString();
         } else if(strcmp(itr->name.GetString(), "deviceTypes.path") == 0) {
             config->deviceTypesPath = itr->value.GetString();
+        } else if(strcmp(itr->name.GetString(), "devices.path") == 0) {
+            config->devicesPath = itr->value.GetString();
         }
     }
 
