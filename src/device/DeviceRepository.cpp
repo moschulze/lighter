@@ -57,7 +57,7 @@ bool DeviceRepository::loadFromFile(std::string path) {
         this->devices[device->id] = device;
     }
 
-    return false;
+    return true;
 }
 
 Device *DeviceRepository::findById(std::string id) {
