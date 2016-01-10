@@ -1,6 +1,5 @@
 #include "Kernel.h"
 #include "device/DeviceTypeRepository.h"
-#include "easylogging++.h"
 #include "device/DeviceRepository.h"
 #include <thread>
 
