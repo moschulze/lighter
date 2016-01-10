@@ -8,6 +8,7 @@
 class DeviceType {
 public:
     std::string name;
+    std::string id;
     int getNumberOfSlots();
     void addSlot(std::string name, int number);
 
