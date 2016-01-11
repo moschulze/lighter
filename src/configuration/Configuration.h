@@ -10,6 +10,7 @@ public:
     std::string deviceTypesPath = "./types/";
     std::string devicesPath = "./devices.json";
     std::string interfacesPath = "./interfaces.json";
+    std::string scenesPath = "./scenes.json";
 
     std::string toString();
 };

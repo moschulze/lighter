@@ -2,6 +2,7 @@
 #include "device/DeviceTypeRepository.h"
 #include "device/DeviceRepository.h"
 #include "interface/InterfaceRepository.h"
+#include "scene/SceneRepository.h"
 #include <thread>
 
 Kernel::Kernel(Configuration* config) {
@@ -13,6 +14,9 @@ void Kernel::boot() {
 
     DeviceRepository* deviceRepository = new DeviceRepository(deviceTypeRepository);
     deviceRepository->loadFromFile(this->config->devicesPath);
+
+    SceneRepository* sceneRepository = new SceneRepository(deviceRepository);
+    sceneRepository->loadFromFile(this->config->scenesPath);
 
     InterfaceRepository* interfaceRepository = new InterfaceRepository();
     interfaceRepository->loadFromFile(this->config->interfacesPath);

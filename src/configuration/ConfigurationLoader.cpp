@@ -25,6 +25,8 @@ Configuration* ConfigurationLoader::loadFromFile(char *path) {
             config->devicesPath = itr->value.GetString();
         } else if(strcmp(itr->name.GetString(), "interfaces.path") == 0) {
             config->interfacesPath = itr->value.GetString();
+        } else if(strcmp(itr->name.GetString(), "scenes.path") == 0) {
+            config->scenesPath = itr->value.GetString();
         }
     }
 
