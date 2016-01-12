@@ -5,6 +5,7 @@
 class ValueCalculator {
 public:
     static int linear(int startValue, int endValue, int totalTime, int currentTime);
+    static int sinus(int startValue, int endValue, int totalTime, int currentTime);
 };
 
 
