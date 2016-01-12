@@ -48,6 +48,6 @@ set(SOURCE_FILES
         src/scene/SceneRepository.h
         src/http/HttpResponse.cpp
         src/http/HttpResponse.h
-)
+        src/rendering/ValueCalculator.cpp src/rendering/ValueCalculator.h)
 add_executable(lighter ${SOURCE_FILES})
 target_link_libraries(lighter ${CMAKE_THREAD_LIBS_INIT})
