@@ -3,6 +3,7 @@
 #include "device/DeviceRepository.h"
 #include "interface/InterfaceRepository.h"
 #include "scene/SceneRepository.h"
+#include "rendering/Renderer.h"
 #include <thread>
 
 Kernel::Kernel(Configuration* config) {
@@ -20,6 +21,9 @@ void Kernel::boot() {
 
     InterfaceRepository* interfaceRepository = new InterfaceRepository();
     interfaceRepository->loadFromFile(this->config->interfacesPath);
+
+    Renderer* renderer = new Renderer(interfaceRepository);
+    renderer->start();
 
     this->httpServer = new HttpServer(this->config->serverPort);
     this->httpServer->init();

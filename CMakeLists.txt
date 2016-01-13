@@ -36,8 +36,8 @@ set(SOURCE_FILES
         src/interface/Interface.h
         src/dmx/DmxUniverse.cpp
         src/dmx/DmxUniverse.h
-        src/artnet/ArtNetInterface.cpp
-        src/artnet/ArtNetInterface.h
+        src/interface/ArtNetInterface.cpp
+        src/interface/ArtNetInterface.h
         src/interface/InterfaceRepository.cpp
         src/interface/InterfaceRepository.h
         src/scene/Scene.cpp
@@ -48,6 +48,10 @@ set(SOURCE_FILES
         src/scene/SceneRepository.h
         src/http/HttpResponse.cpp
         src/http/HttpResponse.h
-        src/rendering/ValueCalculator.cpp src/rendering/ValueCalculator.h)
+        src/rendering/ValueCalculator.cpp
+        src/rendering/ValueCalculator.h
+        src/rendering/Renderer.cpp
+        src/rendering/Renderer.h
+)
 add_executable(lighter ${SOURCE_FILES})
 target_link_libraries(lighter ${CMAKE_THREAD_LIBS_INIT})

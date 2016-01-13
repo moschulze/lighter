@@ -15,6 +15,7 @@ public:
 private:
     DeviceRepository* deviceRepository;
     std::map<std::string, Scene*> scenes;
+    int getFadeType(std::string type);
 };
 
 

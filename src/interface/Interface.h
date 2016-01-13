@@ -8,6 +8,7 @@ public:
     std::string id;
     std::string name;
     int universe;
+    int port = 6454;
     std::string address;
 };
 

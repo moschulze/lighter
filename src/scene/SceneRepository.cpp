@@ -7,6 +7,14 @@ SceneRepository::SceneRepository(DeviceRepository *deviceRepository) {
     this->deviceRepository = deviceRepository;
 }
 
+Scene *SceneRepository::findById(std::string id) {
+    if(this->scenes.find(id) != this->scenes.end()) {
+        return this->scenes.find(id)->second;
+    }
+
+    return NULL;
+}
+
 bool SceneRepository::loadFromFile(std::string path) {
     FILE* filePointer = fopen(path.c_str(), "r");
 
@@ -55,13 +63,13 @@ bool SceneRepository::loadFromFile(std::string path) {
                 LOG(ERROR) << "Cant't read property \"fadeInAnimation\" from scene configuration of scene " << scenesItr->name.GetString() << " step " << step->id <<" in file " << path;
                 return false;
             }
-            step->fadeInAnimation = stepsItr->value["fadeInAnimation"].GetString();
+            step->fadeInAnimation = this->getFadeType(stepsItr->value["fadeInAnimation"].GetString());
 
             if(!stepsItr->value.HasMember("next") || !stepsItr->value["next"].IsString()) {
                 LOG(ERROR) << "Cant't read property \"next\" from scene configuration of scene " << scenesItr->name.GetString() << " step " << step->id <<" in file " << path;
                 return false;
             }
-            step->fadeInAnimation = stepsItr->value["next"].GetString();
+            step->next = stepsItr->value["next"].GetString();
 
             if(!stepsItr->value.HasMember("data") || !stepsItr->value["data"].IsObject()) {
                 LOG(ERROR) << "Cant't read property \"data\" from scene configuration of scene " << scenesItr->name.GetString() << " step " << step->id <<" in file " << path;
@@ -91,4 +99,14 @@ bool SceneRepository::loadFromFile(std::string path) {
     }
 
     return true;
+}
+
+int SceneRepository::getFadeType(std::string type) {
+    if(type.compare("linear") == 0) {
+        return SceneStep::FADE_LINEAR;
+    } else if(type.compare("sinus") == 0) {
+        return SceneStep::FADE_SINUS;
+    } else {
+        return SceneStep::FADE_LINEAR;
+    }
 }

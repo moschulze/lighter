@@ -55,13 +55,13 @@ void ArtNetInterface::sendDmxUniverse(DmxUniverse *universe) {
     }
 }
 
-void ArtNetInterface::init(std::string targetAddress, int port) {
+void ArtNetInterface::init() {
     struct addrinfo hints;
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_protocol = IPPROTO_UDP;
-    int r = getaddrinfo(targetAddress.c_str(), std::to_string(port).c_str(), &hints, &f_addrinfo);
+    int r = getaddrinfo(this->address.c_str(), std::to_string(this->port).c_str(), &hints, &f_addrinfo);
     if(r != 0 || f_addrinfo == NULL)
     {
         //Todo error handling

@@ -2,12 +2,13 @@
 #define LIGHTER_ARTNETINTERFACE_H
 
 #include "../dmx/DmxUniverse.h"
+#include "../interface/Interface.h"
 #include <string>
 
-class ArtNetInterface {
+class ArtNetInterface : public Interface {
 public:
     void sendDmxUniverse(DmxUniverse* universe);
-    void init(std::string targetAddress, int port);
+    void init();
 
 private:
     struct addrinfo * f_addrinfo;

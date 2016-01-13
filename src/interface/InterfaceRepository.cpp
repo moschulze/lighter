@@ -1,6 +1,7 @@
 #include "InterfaceRepository.h"
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
+#include "ArtNetInterface.h"
 #include <easylogging++.h>
 
 bool InterfaceRepository::loadFromFile(std::string path) {
@@ -18,7 +19,7 @@ bool InterfaceRepository::loadFromFile(std::string path) {
     fclose(filePointer);
 
     for(rapidjson::Value::ConstMemberIterator itr = document.MemberBegin(); itr != document.MemberEnd(); ++itr) {
-        Interface* interface = new Interface();
+        ArtNetInterface* interface = new ArtNetInterface();
         interface->id = itr->name.GetString();
 
         if(!itr->value.HasMember("name") || !itr->value["name"].IsString()) {
@@ -39,12 +40,13 @@ bool InterfaceRepository::loadFromFile(std::string path) {
         }
         interface->address = itr->value["address"].GetString();
 
+        interface->init();
         this->interfaces[interface->universe] = interface;
         return true;
     }
 }
 
-Interface *InterfaceRepository::findByUniverse(int universe) {
+ArtNetInterface *InterfaceRepository::findByUniverse(int universe) {
     if(this->interfaces.find(universe) != this->interfaces.end()) {
         return this->interfaces.find(universe)->second;
     }

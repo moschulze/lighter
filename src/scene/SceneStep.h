@@ -10,13 +10,22 @@ class SceneStep {
 public:
     std::string id;
     int fadeInTime;
-    std::string fadeInAnimation;
+    int fadeInAnimation;
     int duration;
     std::string next;
     void addDeviceData(Device* device, uint8_t* data);
+    int passedFadeInTime;
+    int passedDuration;
 
-private:
     std::map<Device*, uint8_t*> data;
+    std::map<Device*, uint8_t*> oldData;
+
+    int state;
+    static const int STATE_FADE_IN = 0;
+    static const int STATE_SHOW = 1;
+
+    static const int FADE_LINEAR = 0;
+    static const int FADE_SINUS = 1;
 };
 
 
