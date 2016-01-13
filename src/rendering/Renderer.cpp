@@ -74,9 +74,7 @@ void Renderer::start() {
         }
 
         if(changed) {
-            for(std::map<int, DmxUniverse*>::iterator itr = this->universes.begin(); itr != universes.end(); itr++) {
-                this->interfaceRepository->findByUniverse(itr->first)->sendDmxUniverse(itr->second);
-            }
+            this->sendUniverses();
         }
 
         int sleepTime = 33 - timePassed;
@@ -84,6 +82,11 @@ void Renderer::start() {
             usleep(sleepTime * 1000);
         }
     }
+
+    for(std::map<int, DmxUniverse*>::iterator itr = this->universes.begin(); itr != universes.end(); itr++) {
+        itr->second->reset();
+    }
+    this->sendUniverses();
 }
 
 void Renderer::startScene(Scene *scene) {
@@ -119,4 +122,14 @@ DmxUniverse *Renderer::getUniverse(int id) {
     }
 
     return this->universes.find(id)->second;
+}
+
+void Renderer::stop() {
+    this->run = false;
+}
+
+void Renderer::sendUniverses() {
+    for(std::map<int, DmxUniverse*>::iterator itr = this->universes.begin(); itr != universes.end(); itr++) {
+        this->interfaceRepository->findByUniverse(itr->first)->sendDmxUniverse(itr->second);
+    }
 }

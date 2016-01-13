@@ -24,12 +24,12 @@ void Kernel::boot() {
 
     Renderer* renderer = new Renderer(interfaceRepository);
     renderer->init(deviceRepository);
-    renderer->start();
+    std::thread rendererThread(&Renderer::start, std::ref(renderer));
 
     this->httpServer = new HttpServer(this->config->serverPort);
     this->httpServer->init();
-
     this->httpServer->start();
-    //std::thread serverThread(&HttpServer::start, this->httpServer);
-    //serverThread.join();
+
+    renderer->stop();
+    rendererThread.join();
 }

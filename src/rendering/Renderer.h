@@ -12,6 +12,7 @@ class Renderer {
 public:
     Renderer(InterfaceRepository* interfaceRepository);
     void start();
+    void stop();
     void startScene(Scene* scene);
     void init(DeviceRepository* deviceRepository);
 
@@ -22,6 +23,7 @@ private:
     InterfaceRepository* interfaceRepository;
     void switchSceneStep(Scene* scene, std::string stepId);
     DmxUniverse* getUniverse(int id);
+    void sendUniverses();
 };
 
 
