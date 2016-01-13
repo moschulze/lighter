@@ -23,6 +23,7 @@ void Kernel::boot() {
     interfaceRepository->loadFromFile(this->config->interfacesPath);
 
     Renderer* renderer = new Renderer(interfaceRepository);
+    renderer->init(deviceRepository);
     renderer->start();
 
     this->httpServer = new HttpServer(this->config->serverPort);

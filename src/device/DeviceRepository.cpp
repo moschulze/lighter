@@ -2,6 +2,7 @@
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
 #include <easylogging++.h>
+#include <algorithm>
 
 DeviceRepository::DeviceRepository(DeviceTypeRepository *deviceTypeRepository) {
     this->deviceTypeRepository = deviceTypeRepository;
@@ -66,4 +67,16 @@ Device *DeviceRepository::findById(std::string id) {
     }
 
     return NULL;
+}
+
+std::vector<int> DeviceRepository::getUniverses() {
+    std::vector<int> universes;
+
+    for(std::map<std::string, Device*>::iterator itr = this->devices.begin(); itr != this->devices.end(); itr++) {
+        if(std::find(universes.begin(), universes.end(), itr->second->universe) == universes.end()) {
+            universes.push_back(itr->second->universe);
+        }
+    }
+
+    return universes;
 }

@@ -2,19 +2,34 @@
 #include "ValueCalculator.h"
 #include <chrono>
 #include "unistd.h"
+#include <vector>
 
 Renderer::Renderer(InterfaceRepository *interfaceRepository) {
     this->interfaceRepository = interfaceRepository;
 }
 
+void Renderer::init(DeviceRepository *deviceRepository) {
+    std::vector<int> universes = deviceRepository->getUniverses();
+    for(std::vector<int>::iterator itr = universes.begin(); itr != universes.end(); itr++) {
+        this->universes[*itr] = new DmxUniverse();
+    }
+}
+
 void Renderer::start() {
-    bool changed = false;
     std::chrono::milliseconds last = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+    int sendTimeout = 0;
+    bool changed = false;
     while(run) {
         std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         auto diffMs = now - last;
         int timePassed = diffMs.count();
+        sendTimeout += timePassed;
         last = now;
+        changed = false;
+        if(sendTimeout >= 3000) {
+            sendTimeout = 0;
+            changed = true;
+        }
 
         for(std::map<std::string, Scene*>::iterator itr = this->activeScenes.begin(); itr != this->activeScenes.end(); itr++) {
             Scene* scene = itr->second;

@@ -6,12 +6,14 @@
 #include "../scene/Scene.h"
 #include "../dmx/DmxUniverse.h"
 #include "../interface/InterfaceRepository.h"
+#include "../device/DeviceRepository.h"
 
 class Renderer {
 public:
     Renderer(InterfaceRepository* interfaceRepository);
     void start();
     void startScene(Scene* scene);
+    void init(DeviceRepository* deviceRepository);
 
 private:
     std::map<std::string, Scene*> activeScenes;
