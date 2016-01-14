@@ -8,6 +8,7 @@ class Kernel {
 public:
     Kernel(Configuration* config);
     void boot();
+    void shutdown();
 private:
     Configuration* config;
     HttpServer* httpServer;

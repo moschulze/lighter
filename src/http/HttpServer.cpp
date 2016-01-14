@@ -4,6 +4,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <thread>
+#include <fcntl.h>
 #include "easylogging++.h"
 #include "ClientProcessor.h"
 
@@ -22,6 +23,10 @@ void HttpServer::init() {
     int yes = 1;
     setsockopt(this->serverSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
 
+    int flags = fcntl(this->serverSocket, F_GETFL, 0);
+    flags = flags | O_NONBLOCK;
+    fcntl(this->serverSocket, F_SETFL, flags);
+
     struct sockaddr_in sockAddr;
     sockAddr.sin_family = AF_INET;
     sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -35,6 +40,11 @@ void HttpServer::init() {
 void HttpServer::start() {
     while(this->run) {
         int client = accept(this->serverSocket, NULL, NULL);
+
+        if(client == -1) {
+            continue;
+        }
+
         ClientProcessor* clientProcessor = new ClientProcessor();
         clientProcessor->setClient(client);
         clientProcessor->process();
