@@ -26,7 +26,7 @@ void Kernel::boot() {
     renderer->init(deviceRepository);
     std::thread rendererThread(&Renderer::start, std::ref(renderer));
 
-    this->httpServer = new HttpServer(this->config->serverPort);
+    this->httpServer = new HttpServer(this->config->serverPort, sceneRepository, renderer);
     this->httpServer->init();
     this->httpServer->start();
 

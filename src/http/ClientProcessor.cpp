@@ -5,6 +5,11 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+ClientProcessor::ClientProcessor(SceneRepository *sceneRepository, Renderer* renderer) {
+    this->sceneRepository = sceneRepository;
+    this->renderer = renderer;
+}
+
 void ClientProcessor::process() {
     char buffer[INPUT_BUFFER_SIZE];
     int bytesRead = 1;
@@ -29,6 +34,8 @@ void ClientProcessor::process() {
     HttpResponse* response = NULL;
     if(request->uri.find("/api/") == 0) {
         response = this->processApiRequest(request);
+    } else {
+        response = this->processFileRequest(request);
     }
 
     if(response == NULL) {
@@ -46,5 +53,22 @@ void ClientProcessor::setClient(int client) {
 }
 
 HttpResponse *ClientProcessor::processApiRequest(HttpRequest* request) {
+    std::string apiUri = request->uri.substr(4);
+    if(apiUri.find("/scene/start/") == 0) {
+        Scene* scene = this->sceneRepository->findById(apiUri.substr(13));
+        if(scene == NULL) {
+            return NULL;
+        }
+
+        this->renderer->startScene(scene);
+        HttpResponse* response = new HttpResponse();
+        response->body = "{\"success\":true}";
+        return response;
+    }
+
+    return NULL;
+}
+
+HttpResponse *ClientProcessor::processFileRequest(HttpRequest* request) {
     return NULL;
 }

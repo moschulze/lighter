@@ -52,6 +52,8 @@ set(SOURCE_FILES
         src/rendering/ValueCalculator.h
         src/rendering/Renderer.cpp
         src/rendering/Renderer.h
+        src/http/HttpJsonResponse.cpp
+        src/http/HttpJsonResponse.h
 )
 add_executable(lighter ${SOURCE_FILES})
 target_link_libraries(lighter ${CMAKE_THREAD_LIBS_INIT})

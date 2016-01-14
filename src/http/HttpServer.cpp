@@ -9,8 +9,10 @@
 #include "ClientProcessor.h"
 
 
-HttpServer::HttpServer(int port) {
+HttpServer::HttpServer(int port, SceneRepository* sceneRepository, Renderer* renderer) {
     this->port = port;
+    this->sceneRepository = sceneRepository;
+    this->renderer = renderer;
 }
 
 void HttpServer::init() {
@@ -45,7 +47,7 @@ void HttpServer::start() {
             continue;
         }
 
-        ClientProcessor* clientProcessor = new ClientProcessor();
+        ClientProcessor* clientProcessor = new ClientProcessor(this->sceneRepository, this->renderer);
         clientProcessor->setClient(client);
         clientProcessor->process();
 
