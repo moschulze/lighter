@@ -55,18 +55,22 @@ void ClientProcessor::setClient(int client) {
 HttpResponse *ClientProcessor::processApiRequest(HttpRequest* request) {
     std::string apiUri = request->uri.substr(4);
     if(apiUri.find("/scene/start/") == 0) {
-        Scene* scene = this->sceneRepository->findById(apiUri.substr(13));
-        if(scene == NULL) {
-            return NULL;
-        }
-
-        this->renderer->startScene(scene);
-        HttpResponse* response = new HttpResponse();
-        response->body = "{\"success\":true}";
-        return response;
+        return this->startScene(apiUri.substr(13));
     }
 
     return NULL;
+}
+
+HttpResponse *ClientProcessor::startScene(std::string sceneId) {
+    Scene* scene = this->sceneRepository->findById(sceneId);
+    if(scene == NULL) {
+        return NULL;
+    }
+
+    this->renderer->startScene(scene);
+    HttpResponse* response = new HttpResponse();
+    response->body = "{\"success\":true}";
+    return response;
 }
 
 HttpResponse *ClientProcessor::processFileRequest(HttpRequest* request) {

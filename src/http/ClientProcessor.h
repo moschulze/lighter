@@ -21,6 +21,7 @@ private:
     HttpResponse* processFileRequest(HttpRequest* request);
     SceneRepository* sceneRepository;
     Renderer* renderer;
+    HttpResponse* startScene(std::string sceneId);
 };
 
 

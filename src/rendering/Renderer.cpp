@@ -94,6 +94,10 @@ void Renderer::start() {
 }
 
 void Renderer::startScene(Scene *scene) {
+    if(this->activeScenes.find(scene->id) != this->activeScenes.end()) {
+        return;
+    }
+
     SceneStep* firstStep = scene->getFirstStep();
     this->switchSceneStep(scene, firstStep->id);
     this->activeScenes[scene->id] = scene;
