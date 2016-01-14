@@ -66,6 +66,10 @@ void Renderer::start() {
                 }
                 changed = true;
             } else if(activeStep->state == SceneStep::STATE_SHOW) {
+                if(activeStep->duration == -1) {
+                    continue;
+                }
+
                 activeStep->passedDuration += timePassed;
                 if(activeStep->passedDuration > activeStep->duration) {
                     this->switchSceneStep(scene, activeStep->next);

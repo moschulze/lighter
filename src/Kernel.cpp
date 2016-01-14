@@ -24,6 +24,7 @@ void Kernel::boot() {
 
     Renderer* renderer = new Renderer(interfaceRepository);
     renderer->init(deviceRepository);
+    renderer->startScene(sceneRepository->findById("scene1"));
     std::thread rendererThread(&Renderer::start, std::ref(renderer));
 
     this->httpServer = new HttpServer(this->config->serverPort);
