@@ -1,6 +1,9 @@
 #ifndef LIGHTER_CLIENTPROCESSOR_H
 #define LIGHTER_CLIENTPROCESSOR_H
 
+#include "HttpResponse.h"
+#include "HttpRequest.h"
+
 #define INPUT_BUFFER_SIZE 1024
 
 
@@ -11,6 +14,7 @@ public:
 
 private:
     int client;
+    HttpResponse* processApiRequest(HttpRequest* request);
 };
 
 

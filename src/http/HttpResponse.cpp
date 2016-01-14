@@ -1,6 +1,10 @@
 #include "HttpResponse.h"
 #include <sstream>
 
+HttpResponse::HttpResponse() {
+    this->setHeader("Server", "Lighter");
+}
+
 void HttpResponse::setHeader(std::string key, std::string value) {
     this->headers[key] = value;
 }

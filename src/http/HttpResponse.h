@@ -6,6 +6,7 @@
 
 class HttpResponse {
 public:
+    HttpResponse();
     std::string body = "";
     int statusCode = 200;
     std::string httpVersion = "1.1";

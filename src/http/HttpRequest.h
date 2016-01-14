@@ -9,13 +9,13 @@ class HttpRequest {
 public:
     void buildFromString(std::string input);
     std::string toString();
-
-private:
     std::string method = "";
     std::string uri = "";
     std::string httpVersion = "";
-    std::map<std::string, std::string> headers;
     std::string body = "";
+
+private:
+    std::map<std::string, std::string> headers;
 };
 
 

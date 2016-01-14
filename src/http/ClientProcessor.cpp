@@ -26,13 +26,25 @@ void ClientProcessor::process() {
     HttpRequest* request = new HttpRequest();
     request->buildFromString(input);
 
-    HttpResponse* response = new HttpResponse();
-    response->body = "Lighter";
-    response->setHeader("Server", "Lighter");
+    HttpResponse* response = NULL;
+    if(request->uri.find("/api/") == 0) {
+        response = this->processApiRequest(request);
+    }
+
+    if(response == NULL) {
+        response = new HttpResponse();
+        response->statusCode = 404;
+        response->body = "The requested resource was not found";
+    }
+
     std::string responseString = response->toString();
     write(this->client, responseString.c_str(), responseString.length());
 }
 
 void ClientProcessor::setClient(int client) {
     this->client = client;
+}
+
+HttpResponse *ClientProcessor::processApiRequest(HttpRequest* request) {
+    return NULL;
 }
