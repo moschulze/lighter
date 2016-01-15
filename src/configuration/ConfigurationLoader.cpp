@@ -1,10 +1,16 @@
 #include "ConfigurationLoader.h"
 #include "rapidjson/filereadstream.h"
-
 #include "rapidjson/document.h"
+#include "easylogging++.h"
 
 Configuration* ConfigurationLoader::loadFromFile(char *path) {
     FILE* filePointer = fopen(path, "r");
+
+    if(filePointer == NULL) {
+        LOG(ERROR) << "Cant't open main configuration file " << path << ". Using defaults.";
+        return new Configuration();
+    }
+
     char buffer[65536];
     rapidjson::FileReadStream inputStream(filePointer, buffer, sizeof(buffer));
 
