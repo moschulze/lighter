@@ -49,6 +49,7 @@ void Renderer::start() {
                         for(int i = 0; i < device->type->getNumberOfSlots(); i++) {
                             universe->setSlot(device->startAddress + i, data[i]);
                         }
+                        changed = true;
                     }
 
                     continue;
