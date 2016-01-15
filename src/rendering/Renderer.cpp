@@ -72,6 +72,11 @@ void Renderer::start() {
 
                 activeStep->passedDuration += timePassed;
                 if(activeStep->passedDuration > activeStep->duration) {
+                    if(activeStep->next.compare("") == 0) {
+                        this->activeScenes.erase(scene->id);
+                        continue;
+                    }
+
                     this->switchSceneStep(scene, activeStep->next);
                 }
             }
