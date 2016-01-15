@@ -14,6 +14,7 @@ public:
     void start();
     void stop();
     void startScene(Scene* scene);
+    void stopScene(Scene* scene);
     void init(DeviceRepository* deviceRepository);
 
 private:

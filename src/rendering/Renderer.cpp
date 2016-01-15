@@ -108,6 +108,14 @@ void Renderer::startScene(Scene *scene) {
     this->activeScenes[scene->id] = scene;
 }
 
+void Renderer::stopScene(Scene *scene) {
+    if(this->activeScenes.find(scene->id) == this->activeScenes.end()) {
+        return;
+    }
+
+    this->switchSceneStep(scene, "end");
+}
+
 void Renderer::switchSceneStep(Scene *scene, std::string stepId) {
     SceneStep* step = scene->getStep(stepId);
     step->passedDuration = 0;
