@@ -2,6 +2,8 @@
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/document.h"
 #include <easylogging++.h>
+#include <map>
+#include <vector>
 
 SceneRepository::SceneRepository(DeviceRepository *deviceRepository) {
     this->deviceRepository = deviceRepository;
@@ -95,6 +97,10 @@ bool SceneRepository::loadFromFile(std::string path) {
             scene->addStep(step);
         }
 
+        if(!this->sceneHasEndStep(scene)) {
+            scene->addStep(this->buildEndStepForScene(scene));
+        }
+
         this->scenes[scene->id] = scene;
     }
 
@@ -109,4 +115,34 @@ int SceneRepository::getFadeType(std::string type) {
     } else {
         return SceneStep::FADE_LINEAR;
     }
+}
+
+bool SceneRepository::sceneHasEndStep(Scene *scene) {
+    for(auto itr = scene->stepsBegin(); itr != scene->stepsEnd(); itr++) {
+        if(itr->second->id.compare("end") == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+SceneStep *SceneRepository::buildEndStepForScene(Scene *scene) {
+    SceneStep* step = new SceneStep();
+    step->id = "end";
+    step->duration = 0;
+    step->fadeInTime = 0;
+    step->fadeInAnimation = SceneStep::FADE_LINEAR;
+    step->next = "";
+
+    std::vector<Device*> devices = scene->getAllDevices();
+    for(auto itr = devices.begin(); itr < devices.end(); itr++) {
+        Device* device = *itr;
+        uint8_t* data = new uint8_t[device->type->getNumberOfSlots()];
+        for(int i = 0; i < device->type->getNumberOfSlots(); i++) {
+            data[i] = 0;
+        }
+        step->addDeviceData((*itr), data);
+    }
+
+    return step;
 }

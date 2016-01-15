@@ -16,6 +16,8 @@ private:
     DeviceRepository* deviceRepository;
     std::map<std::string, Scene*> scenes;
     int getFadeType(std::string type);
+    bool sceneHasEndStep(Scene *scene);
+    SceneStep* buildEndStepForScene(Scene* scene);
 };
 
 
