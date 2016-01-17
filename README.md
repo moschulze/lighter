@@ -215,7 +215,7 @@ This configuration consists of multiple scenes with a unique id. Every scene has
 |name            |String     |The name of the scene                                            |
 |steps           |JSON-Object|The different steps of the scene (explained below)               |
 
-The steps also have a unique id for identification and have the following configuration values:
+The steps also have a unique id for identification (there is one special case. Look below!) and have the following configuration values:
 
 |Key             |Type       |Explanation                                                                                                                                    |
 |----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -226,6 +226,12 @@ The steps also have a unique id for identification and have the following config
 |data            |JSON-Object|The data that should be send to the devices for this step (explained below)                                                                    |
 
 The data consists of the unique id of the device they should be send to and the data as a json array in the order of the slots.
+
+#### Special case
+To stop a scene the software switches to the step with the id "end". If this step doesn't exists in the scene configuration it gets generated. The generated step just sets the data for all devices used in the scene to 0 without any fading.
+
+If you want to have a smooth transition to stop the scene, you have to define a step with the id "end" and configure it to match your ideas. It is also possible for the "end" step to have a "next" defined if you want to do multiple steps to end the scene. But you have to make sure that at some point it reaches a step with "next" set to "" so the scene will end. Otherwise it is impossible for you to end the scene.
+
 
 ## HTTP API
 The HTTP API simply works by sending GET, PUSH, POST and DELETE requests with the required data to the server.
