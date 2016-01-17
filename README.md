@@ -93,7 +93,7 @@ This configurations contain information about the different types of devices tha
 To explain the structure of this configuration file we have a look at the configuration for a generic RGB LED or RGB LED strip. The file name is "rgb_led.json" and the content is the following:
 
 ```json
-{The different steps of the scene (explained below)
+{
   "name": "RGB LED",
   "slots": {
     "Red": 1,
@@ -123,7 +123,6 @@ This configuration is important to know where to send the data so it reaches the
         "universe": 1,
         "address": "host"
   }
-  …
 }
 ```
 
@@ -153,7 +152,6 @@ This configuration describes the different devices thar are present. It has the 
       "universe": 0,
       "startAddress": 3
   }
-  …
 }
 ```
 
@@ -201,7 +199,6 @@ This is the heart of the application. In this configuration the actual values fo
           ]
         }
       }
-      …
     }
   }
 }
@@ -215,7 +212,7 @@ This configuration consists of multiple scenes with a unique id. Every scene has
 |name            |String     |The name of the scene                                            |
 |steps           |JSON-Object|The different steps of the scene (explained below)               |
 
-The steps also have a unique id for identification (there is one special case. Look below!) and have the following configuration values:
+The steps also have a unique id for identification (there is one [special case](#special-case)) and have the following configuration values:
 
 |Key             |Type       |Explanation                                                                                                                                    |
 |----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------|
