@@ -226,3 +226,24 @@ The steps also have a unique id for identification and have the following config
 |data            |JSON-Object|The data that should be send to the devices for this step (explained below)                                                                    |
 
 The data consists of the unique id of the device they should be send to and the data as a json array in the order of the slots.
+
+## HTTP API
+The HTTP API simply works by sending GET, PUSH, POST and DELETE requests with the required data to the server.
+
+You can find all currently implemented API requests listed below. The URI parts surrounded by braces are placeholders and will be explained by a table.
+
+### Start scene
+Method: GET
+URI: /api/scene/start/{id}
+
+|Placeholder|Explanation                                 |
+|-----------|--------------------------------------------|
+|{id}       |The unique id of the scene you want to start|
+
+### Stop scene
+Method: GET
+URI: /api/scene/stop/{id}
+
+|Placeholder|Explanation                                |
+|-----------|-------------------------------------------|
+|{id}       |The unique id of the scene you want to stop|
