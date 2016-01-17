@@ -252,16 +252,18 @@ The HTTP API simply works by sending GET, PUSH, POST and DELETE requests with th
 You can find all currently implemented API requests listed below. The URI parts surrounded by braces are placeholders and will be explained by a table.
 
 ### Start scene
-|Method|GET                  |
-|URI   |/api/scene/start/{id}|
+**Method**: GET
+
+**URI**: /api/scene/start/{id}
 
 |Placeholder|Explanation                                 |
 |-----------|--------------------------------------------|
 |{id}       |The unique id of the scene you want to start|
 
 ### Stop scene
-|Method|GET                 |
-|URI   |/api/scene/stop/{id}|
+**Method**: GET
+
+**URI**: /api/scene/stop/{id}
 
 |Placeholder|Explanation                                |
 |-----------|-------------------------------------------|
