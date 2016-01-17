@@ -12,6 +12,22 @@ The software uses the [Art-Net protocol](https://en.wikipedia.org/wiki/Art-Net) 
 
 It can be controlled via an easy to use browser interface (**Not implemented yet**). If you want to write your own Interface there is a HTTP API that can be used to control nearly all features of this software.
 
+## Table of content
+- [Installation](#installation)
+    - [Prerequisite](#prerequisite)
+    - [Downloading the sources](#downloading-the-sources)
+    - [Compiling](#compiling)
+- [Configuration](#configuration)
+    - [Introduction](#introduction)
+    - [Main configuration](#main-configuration)
+    - [Device types](#device-types)
+    - [Interfaces](#interfaces)
+    - [Devices](#devices)
+    - [Scenes](#scenes)
+- [HTTP API](#http-api)
+    - [Start scene](#start-scene)
+    - [Stop scene](#stop-scene)
+
 ## Installation
 ### Prerequisite
 To download and compile the software you need the following tools:
@@ -37,7 +53,7 @@ git submodule init
 git submodule update
 ```
 
-### Compile it
+### Compiling
 To compile the sources it is recommended to create a separate directory. On the command line go to the directory where you cloned the source files and create the build directory:
 
 ```sh
