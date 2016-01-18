@@ -25,6 +25,9 @@ private:
     void switchSceneStep(Scene* scene, std::string stepId);
     DmxUniverse* getUniverse(int id);
     void sendUniverses();
+    void applySlotData(SceneStep* activeStep);
+    void applySlotDataFaded(SceneStep* activeStep);
+    bool renderFrame(int timePassed);
 };
 
 
