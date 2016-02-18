@@ -230,13 +230,13 @@ This configuration consists of multiple scenes with a unique id. Every scene has
 
 The steps also have a unique id for identification (there is one [special case](#special-case)) and have the following configuration values:
 
-|Key             |Type       |Explanation                                                                                                                                    |
-|----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-|fadeInTime      |Integer    |The time in milliseconds it should take to fade to this step                                                                                   |
-|duration        |Integer    |The time in milliseconds the step should be active (after the fade in) before switching to the next step. A value of -1 makes the step infinite|
-|fadeInAnimation |String     |The animation type for the fade in. Possible values are "linear" and "sinus"                                                                   |
-|next            |String     |The id of the step that should be active after this one. If the value is empty ("") the scene will automatically end after this step           |
-|data            |JSON-Object|The data that should be send to the devices for this step (explained below)                                                                    |
+|Key             |Type       |Explanation                                                                                                                                                                                          |
+|----------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|fadeInTime      |Integer    |The time in milliseconds it should take to fade to this step                                                                                                                                         |
+|duration        |Integer    |The time in milliseconds the step should be active (after the fade in) before switching to the next step. A value of -1 makes the step infinite                                                      |
+|fadeInAnimation |String     |The animation type for the fade in. Possible values are "linear" and "sinus"                                                                                                                         |
+|next            |String     |The id of the step that should be active after this one. If the value is empty ("") the scene will automatically end after this step. If the value is "random" the next step will be chosen randomly.|
+|data            |JSON-Object|The data that should be send to the devices for this step (explained below)                                                                                                                          |
 
 The data consists of the unique id of the device they should be send to and the data as a json array in the order of the slots.
 

@@ -40,3 +40,15 @@ std::vector<Device *> Scene::getAllDevices() {
 
     return devices;
 }
+
+std::string Scene::getRandomStepId() {
+    auto iterator = this->steps.begin();
+    std::advance(iterator, rand() % this->steps.size());
+    std::string result = iterator->first;
+
+    if(result.compare("end") == 0) {
+        return this->getRandomStepId();
+    }
+
+    return result;
+}

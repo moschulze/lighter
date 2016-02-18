@@ -81,6 +81,11 @@ bool Renderer::renderFrame(int timePassed) {
                     continue;
                 }
 
+                if(activeStep->next.compare("random") == 0) {
+                    this->switchSceneStep(scene, scene->getRandomStepId());
+                    continue;
+                }
+
                 this->switchSceneStep(scene, activeStep->next);
             }
         }

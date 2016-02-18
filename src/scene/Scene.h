@@ -17,6 +17,7 @@ public:
     std::map<std::string, SceneStep*>::iterator stepsBegin();
     std::map<std::string, SceneStep*>::iterator stepsEnd();
     std::vector<Device*> getAllDevices();
+    std::string getRandomStepId();
 
 private:
     std::map<std::string, SceneStep*> steps;
