@@ -3,6 +3,7 @@
 
 HttpResponse::HttpResponse() {
     this->setHeader("Server", "Lighter");
+    this->setHeader("Content-Type", "application/json");
 }
 
 void HttpResponse::setHeader(std::string key, std::string value) {
