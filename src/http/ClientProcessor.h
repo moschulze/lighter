@@ -23,6 +23,7 @@ private:
     Renderer* renderer;
     HttpResponse* startScene(std::string sceneId);
     HttpResponse* stopScene(std::string sceneId);
+    HttpResponse* listScenes();
 };
 
 

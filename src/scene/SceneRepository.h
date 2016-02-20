@@ -11,6 +11,7 @@ public:
     SceneRepository(DeviceRepository* deviceRepository);
     bool loadFromFile(std::string path);
     Scene* findById(std::string id);
+    std::map<std::string, Scene*> getSceneMap();
 
 private:
     DeviceRepository* deviceRepository;

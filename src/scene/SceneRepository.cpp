@@ -146,3 +146,7 @@ SceneStep *SceneRepository::buildEndStepForScene(Scene *scene) {
 
     return step;
 }
+
+std::map<std::string, Scene *> SceneRepository::getSceneMap() {
+    return this->scenes;
+}

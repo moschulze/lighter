@@ -62,6 +62,10 @@ HttpResponse *ClientProcessor::processApiRequest(HttpRequest* request) {
         return this->stopScene(apiUri.substr(12));
     }
 
+    if(apiUri.find("/scene/list/") == 0) {
+        return this->listScenes();
+    }
+
     return NULL;
 }
 
@@ -86,6 +90,35 @@ HttpResponse *ClientProcessor::stopScene(std::string sceneId) {
     this->renderer->stopScene(scene);
     HttpResponse* response = new HttpResponse();
     response->body = "{\"success\":true}";
+    return response;
+}
+
+HttpResponse *ClientProcessor::listScenes() {
+    std::map<std::string, Scene*> scenes = this->sceneRepository->getSceneMap();
+    std::string responseBody = "{";
+    auto itr = scenes.begin();
+    while(itr != scenes.end()) {
+        responseBody.append("\"");
+        responseBody.append(itr->second->id);
+        responseBody.append("\":{\"name\":\"");
+        responseBody.append(itr->second->name);
+        responseBody.append("\",\"active\":");
+        if(itr->second->activeStep.compare("") == 0) {
+            responseBody.append("false");
+        } else {
+            responseBody.append("true");
+        }
+        responseBody.append("}");
+
+        ++itr;
+        if(itr != scenes.end()) {
+            responseBody.append(",");
+        }
+    }
+    responseBody.append("}");
+
+    HttpResponse* response = new HttpResponse();
+    response->body = responseBody;
     return response;
 }
 

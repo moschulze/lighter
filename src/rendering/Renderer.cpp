@@ -78,6 +78,7 @@ bool Renderer::renderFrame(int timePassed) {
             if(activeStep->passedDuration > activeStep->duration) {
                 if(activeStep->next.compare("") == 0) {
                     this->activeScenes.erase(scene->id);
+                    scene->activeStep = "";
                     continue;
                 }
 
