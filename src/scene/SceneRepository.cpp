@@ -39,7 +39,7 @@ bool SceneRepository::loadFromFile(std::string path) {
             LOG(ERROR) << "Cant't read property \"name\" from scene configuration of " << scenesItr->name.GetString() << " in file " << path;
             return false;
         }
-        scene->name = scenesItr->name.GetString();
+        scene->name = scenesItr->value["name"].GetString();
 
         if(!scenesItr->value.HasMember("steps") || !scenesItr->value["steps"].IsObject()) {
             LOG(ERROR) << "Cant't read property \"steps\" from scene configuration of scene " << scenesItr->name.GetString() << " in file " << path;
