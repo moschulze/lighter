@@ -1,6 +1,7 @@
 #include "ClientProcessor.h"
 #include "HttpRequest.h"
 #include "HttpResponse.h"
+#include "HttpJsonResponse.h"
 #include <string>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -46,6 +47,8 @@ void ClientProcessor::process() {
 
     std::string responseString = response->toString();
     write(this->client, responseString.c_str(), responseString.length());
+
+    delete response;
 }
 
 void ClientProcessor::setClient(int client) {
@@ -76,7 +79,7 @@ HttpResponse *ClientProcessor::startScene(std::string sceneId) {
     }
 
     this->renderer->startScene(scene);
-    HttpResponse* response = new HttpResponse();
+    HttpResponse* response = new HttpJsonResponse();
     response->body = "{\"success\":true}";
     return response;
 }
@@ -88,7 +91,7 @@ HttpResponse *ClientProcessor::stopScene(std::string sceneId) {
     }
 
     this->renderer->stopScene(scene);
-    HttpResponse* response = new HttpResponse();
+    HttpResponse* response = new HttpJsonResponse();
     response->body = "{\"success\":true}";
     return response;
 }
@@ -117,11 +120,34 @@ HttpResponse *ClientProcessor::listScenes() {
     }
     responseBody.append("}");
 
-    HttpResponse* response = new HttpResponse();
+    HttpResponse* response = new HttpJsonResponse();
     response->body = responseBody;
     return response;
 }
 
 HttpResponse *ClientProcessor::processFileRequest(HttpRequest* request) {
-    return NULL;
+    if(request->uri.compare("/") == 0) {
+        request->uri = "/index.html";
+    }
+
+    std::string filePath = "webroot/";
+    filePath.append(request->uri.substr(1).c_str());
+
+    FILE *file = fopen(filePath.c_str(), "r");
+    if(!file) {
+        return NULL;
+    }
+
+    fseek(file, 0, SEEK_END);
+    long fileSize = ftell(file);
+    rewind(file);
+    char *buffer = (char*) malloc(sizeof(char) * fileSize + 1);
+    fread(buffer, 1, fileSize, file);
+    fclose(file);
+
+    buffer[fileSize] = '\0';
+    HttpResponse *response = new HttpResponse();
+    response->body = buffer;
+
+    return response;
 }
