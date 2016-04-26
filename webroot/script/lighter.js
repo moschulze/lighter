@@ -11,11 +11,11 @@ var updateSceneList = function() {
         .done(function(result) {
             var html = '';
             $.each(result, function(key, value) {
-                var cssClass = 'btn btn-default';
+                var cssClass = 'btn-default';
                 if(value.active == true) {
-                    cssClass = 'btn btn-primary';
+                    cssClass = 'btn-primary';
                 }
-                html += '<a href="#" data-id="' + key + '" data-active="' + value.active + '" class="' + cssClass + '">' + value.name + '</a>';
+                html += '<div class="col-md-4"><a href="#" data-id="' + key + '" data-active="' + value.active + '" class="scene-button btn btn-lg ' + cssClass + '">' + value.name + '</a></div>';
             });
             buttonDiv.html(html);
             $('a').on('click', function(e) {
