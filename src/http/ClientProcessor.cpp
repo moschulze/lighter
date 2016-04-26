@@ -47,6 +47,7 @@ void ClientProcessor::process() {
     std::string responseString = response->toString();
     write(this->client, responseString.c_str(), responseString.length());
 
+    delete request;
     delete response;
 }
 
@@ -150,7 +151,9 @@ HttpResponse *ClientProcessor::processFileRequest(HttpRequest* request) {
 
     buffer[fileSize] = '\0';
     HttpResponse *response = new HttpResponse();
-    response->body = buffer;
+    response->body = std::string(buffer);
+
+    free(buffer);
 
     return response;
 }
