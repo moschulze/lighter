@@ -15,7 +15,6 @@ void ClientProcessor::process() {
     char buffer[INPUT_BUFFER_SIZE];
     int bytesRead = 1;
     std::string input;
-    bool run = true;
 
     while(bytesRead > 0) {
         bytesRead = recv(this->client, buffer, (INPUT_BUFFER_SIZE-1), MSG_NOSIGNAL);
@@ -126,6 +125,10 @@ HttpResponse *ClientProcessor::listScenes() {
 }
 
 HttpResponse *ClientProcessor::processFileRequest(HttpRequest* request) {
+    if(request->uri.length() == 0) {
+        return NULL;
+    }
+
     if(request->uri.compare("/") == 0) {
         request->uri = "/index.html";
     }
