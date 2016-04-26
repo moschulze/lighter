@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <thread>
 #include <fcntl.h>
+#include <netdb.h>
 #include "easylogging++.h"
 #include "ClientProcessor.h"
 
@@ -51,4 +52,16 @@ void HttpServer::start() {
 
 void HttpServer::stop() {
     this->run = false;
+
+    //dummy connection to terminate server
+    struct sockaddr_in serverAddress;
+    struct hostent *server;
+    int client = socket(AF_INET, SOCK_STREAM, 0);
+    server = gethostbyname("localhost");
+    bzero((char*) &serverAddress, sizeof(serverAddress));
+    serverAddress.sin_family = AF_INET;
+    bcopy((char*) server->h_addr, (char*) &serverAddress.sin_addr.s_addr, server->h_length);
+    serverAddress.sin_port = htons(this->port);
+    connect(client, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+    close(client);
 }
