@@ -53,6 +53,9 @@ void Renderer::start() {
 
 bool Renderer::renderFrame(int timePassed) {
     bool changed = false;
+
+    std::vector<Scene*> endedScenes;
+
     for(std::map<std::string, Scene*>::iterator itr = this->activeScenes.begin(); itr != this->activeScenes.end(); itr++) {
         Scene* scene = itr->second;
         SceneStep* activeStep = scene->getStep(scene->activeStep);
@@ -77,7 +80,7 @@ bool Renderer::renderFrame(int timePassed) {
             activeStep->passedDuration += timePassed;
             if(activeStep->passedDuration > activeStep->duration) {
                 if(activeStep->next.compare("") == 0) {
-                    this->activeScenes.erase(scene->id);
+                    endedScenes.push_back(scene);
                     scene->activeStep = "";
                     continue;
                 }
@@ -91,6 +94,14 @@ bool Renderer::renderFrame(int timePassed) {
             }
         }
     }
+
+    if(endedScenes.size() > 0) {
+        changed = true;
+        for(std::vector<Scene*>::iterator itr = endedScenes.begin(); itr != endedScenes.end(); itr++) {
+            this->activeScenes.erase((*itr)->id);
+        }
+    }
+
     return changed;
 }
 
